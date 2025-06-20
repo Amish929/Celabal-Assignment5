@@ -1,0 +1,65 @@
+Task Title: Deploy an AKS Cluster Using Azure Portal, Access Dashboard, and Create Roles for Multiple Users
+
+✅ Objective:
+To deploy a managed Kubernetes cluster (AKS) using the Azure Portal, access the Kubernetes dashboard, and configure Role-Based Access Control (RBAC) to assign different roles to multiple users within the cluster.
+
+
+🧰 Tools and Technologies Used:
+Microsoft Azure Portal
+
+Azure Kubernetes Service (AKS)
+
+Azure Active Directory (AAD)
+
+Azure Cloud Shell / Azure CLI
+
+Kubernetes RBAC
+
+
+🔍 Steps Performed:
+🟢 Step 1: Deployed an AKS Cluster from the Azure Portal
+    Logged into Azure Portal.
+
+    Searched for "Kubernetes Services" and clicked Create.
+
+   Filled in required fields:
+
+   Subscription & Resource Group
+
+  Cluster Name
+
+  Region
+
+  Node Size and Count (e.g., Standard_DS2_v2 with 1-2 nodes)
+
+  Enabled RBAC and selected Azure AD integration.
+
+ Left other settings as default and clicked Review + Create, then Create.
+
+🟢 Step 2: Accessed AKS Cluster and Installed Kubernetes Dashboard
+1.Opened Cloud Shell or connected using Azure CLI locally.
+
+2.Ran the following to get credentials:
+ az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster-name>
+3.Installed Kubernetes Dashboard (if not already enabled):
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+4.Started proxy:
+  kubectl proxy
+5.Accessed the dashboard:
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+
+🟢 Step 3: Created a Service Account for Dashboard Access
+   1.Created a ServiceAccount and ClusterRoleBinding:kubectl create serviceaccount dashboard-admin -n kubernetes-dashboard
+kubectl create clusterrolebinding dashboard-admin \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kubernetes-dashboard:dashboard-admin
+2.Retrieved the token:
+  kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep dashboard-admin | awk '{print $1}')
+
+🟢 Step 4: Created Roles and RoleBindings for Multiple Users
+   1.Created namespaces or identified target namespaces.
+   2.Created Role YAML (example: view pods only)
+   3.Applied the Role:
+   4.Created RoleBinding YAML to bind user to role.
+5.Applied the RoleBinding.

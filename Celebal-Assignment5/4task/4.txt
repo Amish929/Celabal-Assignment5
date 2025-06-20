@@ -1,0 +1,38 @@
+Task Title: Deploy a Microservice Application on AKS and Access It Using Public Internet
+✅ Objective:
+To deploy a sample microservice application on an Azure Kubernetes Service (AKS) cluster, expose the service using a LoadBalancer, and access the application over the public internet.
+
+🧰 Tools and Technologies Used:
+Microsoft Azure Portal
+
+Azure Kubernetes Service (AKS)
+
+kubectl (Kubernetes CLI)
+
+Docker (for containerized application)
+
+YAML files for Kubernetes deployments and services
+
+Public Load Balancer
+
+🔍 Steps Performed:
+🟢 Step 1: Created or Used Existing AKS Cluster
+Created an AKS cluster using the Azure Portal.
+
+Used default settings (RBAC enabled, Standard node size).
+
+Connected to the cluster using: az aks get-credentials --resource-group <resource-group-name> --name <aks-cluster-name>
+
+🟢 Step 2: Prepared Microservice Application
+   Used a simple multi-tier microservice app like nginx, node.js, or custom Docker images.
+
+    Created deployment YAMLs for each microservice (e.g., frontend, backend).
+🟢 Step 3: Exposed the Microservice to the Internet
+   Used a LoadBalancer type service to make the app publicly accessible.
+   Applied the service.
+🟢 Step 4: Retrieved the External IP
+Used the command:kubectl get svc
+
+🟢 Step 5: Accessed the Application via Browser
+    Entered the EXTERNAL-IP in the browser.
+    The frontend application was displayed, confirming public access.

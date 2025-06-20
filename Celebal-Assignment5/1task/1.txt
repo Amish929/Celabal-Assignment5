@@ -1,0 +1,27 @@
+Task Title: Create a Kubernetes Cluster Using Minikube
+
+✅ Objective:
+To set up a single-node Kubernetes cluster locally using Minikube, verify its status, and deploy a sample application to ensure the cluster is functioning correctly.
+
+🧰 Tools and Technologies Used:
+Minikube – For creating the local Kubernetes cluster
+
+kubectl – Kubernetes command-line tool
+
+Linux VM – As the host environment (used --driver=none)
+
+Browser – For accessing the Kubernetes Dashboard and sample app
+
+🔍 Steps Performed:
+1. Installed Prerequisites
+   Installed kubectl
+   Installed Minikube
+2. Started the Minikube Cluster
+   Since I was working on a Linux VM, I used the none driver:minikube start --driver=none
+
+3. Verified Cluster Status
+To ensure everything was running properly:
+  kubectl get nodes
+  kubectl cluster-info
+4. Launched the Kubernetes Dashboard (Optional)
+   minikube dashboard

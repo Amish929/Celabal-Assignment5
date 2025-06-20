@@ -1,0 +1,61 @@
+Task Title: Create a Kubernetes Cluster Using kubeadm
+
+✅ Objective:
+To set up a Kubernetes cluster manually using kubeadm, which gives better insight into the internal components of Kubernetes. This task includes setting up a master node (control plane) and worker nodes on Linux-based VMs.
+
+🧰 Tools and Technologies Used:
+Ubuntu 20.04+ (multiple VMs or cloud instances)
+
+kubeadm, kubelet, kubectl (Kubernetes components)
+
+Docker (Container runtime)
+
+SSH (for remote access)
+
+Swap disabled
+
+🔧 System Requirements:
+At least 2 VMs (1 master + 1 worker)
+
+Minimum 2 CPU cores and 2GB RAM per VM
+
+Unique hostnames and static IPs
+
+Internet access on all machines
+
+Ports open: 6443, 10250, 10255, etc.
+
+
+
+🔍 Steps Performed:
+🟢 Step 1: Set Hostnames and Hosts File
+On each node:
+ sudo hostnamectl set-hostname master-node   # On Master
+sudo hostnamectl set-hostname worker-node1  # On Worker
+🟢 Step 2: Disable Swap and Firewall
+   sudo swapoff -a
+  sudo sed -i '/ swap / s/^/#/' /etc/fstab
+   sudo ufw disable
+🟢 Step 3: Install Container Runtime (Docker)
+   sudo apt-get update
+  sudo apt-get install -y docker.io
+  sudo systemctl enable docker
+  sudo systemctl start docker
+
+🟢 Step 4: Install kubeadm, kubelet, and kubectl
+  sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl
+  sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+  sudo apt-get update
+ sudo apt-get install -y kubelet kubeadm kubectl
+  sudo apt-mark hold kubelet kubeadm kubectl
+
+🟢 Step 5: Initialize the Kubernetes Control Plane (Master Node)
+   After success, it shows a kubeadm join command to be used by workers.
+🟢 Step 6: Join Worker Node(s) to the Cluster
+   Run the kubeadm join command (from step 5) on worker node(s)
+🟢 Step 7: Verify Cluster Nodes (on Master)
+   kubectl get nodes
+
+

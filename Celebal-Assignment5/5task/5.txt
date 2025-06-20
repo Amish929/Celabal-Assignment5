@@ -1,0 +1,47 @@
+Task Title: Expose Services in the Cluster with NodePort, ClusterIP, and LoadBalancer
+
+✅ Objective:
+To deploy an application in a Kubernetes cluster and expose it using three different service types:
+
+ClusterIP – Internal-only access
+
+NodePort – External access via node's IP and port
+
+LoadBalancer – External access using a cloud load balancer (AKS)
+
+
+🧰 Tools and Technologies Used:
+Azure Kubernetes Service (AKS)
+
+kubectl (Kubernetes CLI)
+
+YAML configuration files
+
+Browser (for verifying service accessibility)
+
+
+🔍 Steps Performed:
+🟢 Step 1: Created AKS Cluster and Connected via CLI
+Used existing or newly created AKS cluster: az aks get-credentials --resource-group <your-rg> --name <your-aks-cluster>
+
+🟢 Step 2: Deployed a Sample Application
+  Used myapp as a simple test deployment:kubectl create deployment myapp --image=myapp
+🟢 Step 3: Exposed the App Using ClusterIP
+  kubectl expose deployment myapp --port=80 --target-port=80 --name=myapp-clusterip --type=ClusterIP
+
+🟢 Step 4: Exposed the App Using NodePort
+Allows external access using any node's IP and a port in the 30000–32767 range.
+  kubectl expose deployment myapp --port=80 --target-port=80 --name=myapp-nodeport --type=NodePort
+Accessed using:
+ http://<Node-External-IP>:<NodePort>
+
+🟢 Step 5: Exposed the App Using LoadBalancer
+  For cloud-based clusters like AKS. Automatically provisions a cloud load balancer.
+  kubectl expose deployment myapp --port=80 --target-port=80 --name=myapp-loadbalancer --type=LoadBalancer
+  Accessed via browser:
+  http://<EXTERNAL-IP>
+
+
+
+
+
